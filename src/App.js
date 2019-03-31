@@ -7,10 +7,16 @@ import './App.css';
 class App extends Component {
   state = {
     player1: '',
-    player2: ''
+    player2: '',
+    board: [['', '', ''], ['', '', ''], ['', '', '']]
   };
   handleNewGame = (player1, player2) => {
     this.setState({ player1, player2 });
+  };
+  handleCellClick = (rowIndex, cellIndex) => {
+    const board = this.state.board.map(row => [...row]);
+    board[rowIndex][cellIndex] = 'X';
+    this.setState({ board });
   };
   render() {
     return (
@@ -30,7 +36,12 @@ class App extends Component {
           </a>
         </header>
         <Registration onNewGame={this.handleNewGame} />
-        <Game player1={this.state.player1} player2={this.state.player2} />
+        <Game
+          board={this.state.board}
+          player1={this.state.player1}
+          player2={this.state.player2}
+          onCellClicked={this.handleCellClick}
+        />
       </div>
     );
   }
