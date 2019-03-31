@@ -16,6 +16,14 @@ function getPlayer2Title() {
   return page.$eval('[data-hook="p2-title"]', el => el.innerText);
 }
 
+function clickACellAt(index) {
+  return page.$$eval('td', (tds, _index) => tds[_index].click(), index);
+}
+
+function getACellAt(index) {
+  return page.$$eval('td', (tds, _index) => tds[0].innerText, index);
+}
+
 test('should register players', async () => {
   const player1 = 'Yaniv';
   const player2 = 'Computer';
@@ -32,6 +40,6 @@ test('should show "X" after first click', async () => {
 
   await navigate();
   await newGame(player1, player2);
-  await page.$$eval('td', tds => tds[0].click());
-  expect(await page.$$eval('td', tds => tds[0].innerText)).toBe('X');
+  await clickACellAt(0);
+  expect(await getACellAt(0)).toBe('X');
 });
