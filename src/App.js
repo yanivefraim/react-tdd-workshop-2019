@@ -8,7 +8,8 @@ class App extends Component {
   state = {
     player1: '',
     player2: '',
-    board: [['', '', ''], ['', '', ''], ['', '', '']]
+    board: [['', '', ''], ['', '', ''], ['', '', '']],
+    winner: ''
   };
   handleNewGame = (player1, player2) => {
     this.setState({ player1, player2 });
@@ -16,6 +17,9 @@ class App extends Component {
   handleCellClick = (rowIndex, cellIndex) => {
     const board = this.state.board.map(row => [...row]);
     board[rowIndex][cellIndex] = 'X';
+    if (board[0].every(cell => cell === 'X')) {
+      this.setState({ winner: 'X' });
+    }
     this.setState({ board });
   };
   render() {
@@ -42,6 +46,7 @@ class App extends Component {
           player2={this.state.player2}
           onCellClicked={this.handleCellClick}
         />
+        {this.state.winner && <div data-hook="winner">Yaniv won!!!</div>}
       </div>
     );
   }
