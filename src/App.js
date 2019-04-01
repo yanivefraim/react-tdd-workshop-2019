@@ -1,55 +1,58 @@
 import { Game } from './Game';
 import { Registration } from './Registration';
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-class App extends Component {
-  state = {
-    player1: '',
-    player2: '',
-    board: [['', '', ''], ['', '', ''], ['', '', '']],
-    winner: ''
+export function App() {
+  const [player1, setPlayer1] = useState('');
+  const [player2, setPlayer2] = useState('');
+  const [board, setBoard] = useState([
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', '']
+  ]);
+  const [winner, setWinner] = useState('');
+
+  const handleNewGame = (_player1, _player2) => {
+    setPlayer1(_player1);
+    setPlayer2(_player2);
   };
-  handleNewGame = (player1, player2) => {
-    this.setState({ player1, player2 });
-  };
-  handleCellClick = (rowIndex, cellIndex) => {
-    const board = this.state.board.map(row => [...row]);
-    board[rowIndex][cellIndex] = 'X';
-    if (board[0].every(cell => cell === 'X')) {
-      this.setState({ winner: 'X' });
+  const handleCellClick = (rowIndex, cellIndex) => {
+    const _board = board.map(row => [...row]);
+    _board[rowIndex][cellIndex] = 'X';
+    if (_board[0].every(cell => cell === 'X')) {
+      setWinner('X');
     }
-    this.setState({ board });
+    setBoard(_board);
   };
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-        <Registration onNewGame={this.handleNewGame} />
-        <Game
-          board={this.state.board}
-          player1={this.state.player1}
-          player2={this.state.player2}
-          onCellClicked={this.handleCellClick}
-        />
-        {this.state.winner && <div data-hook="winner">Yaniv won!!!</div>}
-      </div>
-    );
-  }
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+      <Registration onNewGame={handleNewGame} />
+      <Game
+        board={board}
+        player1={player1}
+        player2={player2}
+        onCellClicked={handleCellClick}
+      />
+      {winner && <div data-hook="winner">Yaniv won!!!</div>}
+    </div>
+  );
 }
 
 export default App;

@@ -1,38 +1,22 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-export class Registration extends Component {
-  state = {
-    player1: '',
-    player2: ''
-  };
-  render() {
-    return (
-      <div>
-        <input
-          data-hook="p1-input"
-          onChange={evt =>
-            this.setState({
-              player1: evt.target.value
-            })
-          }
-        />
-        <input
-          data-hook="p2-input"
-          onChange={evt =>
-            this.setState({
-              player2: evt.target.value
-            })
-          }
-        />
-        <button
-          data-hook="new-game"
-          onClick={() =>
-            this.props.onNewGame(this.state.player1, this.state.player2)
-          }
-        >
-          new game
-        </button>
-      </div>
-    );
-  }
+export function Registration({ onNewGame }) {
+  const [player1, setPlayer1] = useState('');
+  const [player2, setPlayer2] = useState('');
+
+  return (
+    <div>
+      <input
+        data-hook="p1-input"
+        onChange={evt => setPlayer1(evt.target.value)}
+      />
+      <input
+        data-hook="p2-input"
+        onChange={evt => setPlayer2(evt.target.value)}
+      />
+      <button data-hook="new-game" onClick={() => onNewGame(player1, player2)}>
+        new game
+      </button>
+    </div>
+  );
 }
