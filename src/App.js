@@ -1,6 +1,7 @@
+import React, { useState } from 'react';
 import { Game } from './Game';
 import { Registration } from './Registration';
-import React, { useState } from 'react';
+import { gameStatus } from './gameService';
 import logo from './logo.svg';
 import './App.css';
 
@@ -21,7 +22,7 @@ export function App() {
   const handleCellClick = (rowIndex, cellIndex) => {
     const _board = board.map(row => [...row]);
     _board[rowIndex][cellIndex] = 'X';
-    if (_board[0].every(cell => cell === 'X')) {
+    if (gameStatus(_board) === 'X') {
       setWinner('X');
     }
     setBoard(_board);
