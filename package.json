@@ -25,7 +25,8 @@
     "jest-puppeteer": "^4.1.0",
     "lint-staged": "^8.1.5",
     "prettier": "^1.16.4",
-    "puppeteer": "^1.14.0"
+    "puppeteer": "^1.14.0",
+    "react-testing-library": "^6.0.4"
   },
   "prettier": {
     "singleQuote": true

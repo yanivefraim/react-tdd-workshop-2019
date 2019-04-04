@@ -14,7 +14,14 @@ export function Registration({ onNewGame }) {
         data-hook="p2-input"
         onChange={evt => setPlayer2(evt.target.value)}
       />
-      <button data-hook="new-game" onClick={() => onNewGame(player1, player2)}>
+      <button
+        data-hook="new-game"
+        onClick={() => {
+          if (player1 && player2) {
+            onNewGame(player1, player2);
+          }
+        }}
+      >
         new game
       </button>
     </div>
